@@ -1,20 +1,27 @@
-import React, { useState } from 'react'
 const initialGameBoard = [
     [null,null,null],
     [null,null,null],
     [null,null,null]
 ]
-const GameBoard = ({onSelectSquare,activePlayerSymbol}) => {
-    const [gameBoard,setGameBoard]= useState(initialGameBoard);
-    const handleSelectSquare =(rowIndex,columnIndex)=>{
-        setGameBoard((previousGameBoard)=>{
-            const updatedGameBoard= [...previousGameBoard.map((innerArray)=>[...innerArray])]
-            updatedGameBoard[rowIndex][columnIndex]=activePlayerSymbol;
-            return updatedGameBoard;
-        })
+const GameBoard = ({onSelectSquare,turns}) => {
+    // const [gameBoard,setGameBoard]= useState(initialGameBoard);
+    // const handleSelectSquare =(rowIndex,columnIndex)=>{
+    //     setGameBoard((previousGameBoard)=>{
+    //         const updatedGameBoard= [...previousGameBoard.map((innerArray)=>[...innerArray])]
+    //         updatedGameBoard[rowIndex][columnIndex]=activePlayerSymbol;
+    //         return updatedGameBoard;
+    //     })
 
-        onSelectSquare();
+    //     onSelectSquare();
+    // }
+    let gameBoard = initialGameBoard;
+    for(const turn of turns){
+        const {square , player} = turn;
+        const {row , column} = square;
+        gameBoard[row][column]= player
     }
+   
+    
   return (
     <ol id='game-board'>
        {
@@ -22,11 +29,11 @@ const GameBoard = ({onSelectSquare,activePlayerSymbol}) => {
             <li key={rowIndex}>
                 <ol>
                     {
-                     row.map((playerName,columnIndex)=>(
+                     row.map((playerSymbol,columnIndex)=>(
                             <li key={columnIndex}>
                                 <button
-                                    onClick={()=>handleSelectSquare(rowIndex,columnIndex)}
-                                >{playerName}</button>
+                                 onClick={() => onSelectSquare(rowIndex, columnIndex)}
+                                >{playerSymbol}</button>
                             </li>
                         ))}
                 </ol>

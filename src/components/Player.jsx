@@ -1,17 +1,23 @@
 import React from 'react'
 import { useState } from 'react'
 
-const Player = ({initialName , symbol,isActive}) => {
+const Player = ({initialName , symbol,isActive,pl}) => {
     const[isEditing , setIsEditing ] =useState(false);
     const [playerName,setPlayerName] = useState(initialName)
+
+
     const handlePlayerName=()=>{
        // setIsEditing(isEditing ? false : true )
       // setIsEditing(!isEditing);
       setIsEditing(editing=>!editing)// this is the best practice by react 
     }
+
+
     const handleChange = (event)=>{
         setPlayerName(event.target.value)
     }
+
+
     let editablePlayerName = <span className='player-name'>{playerName}</span>
     //let btnCaption = "Edit"
     if(isEditing){
