@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 
-const Player = ({initialName , symbol,isActive,pl}) => {
+const Player = ({ initialName, symbol, isActive, onChangeName }) => {
     const[isEditing , setIsEditing ] =useState(false);
     const [playerName,setPlayerName] = useState(initialName)
 
@@ -10,6 +10,9 @@ const Player = ({initialName , symbol,isActive,pl}) => {
        // setIsEditing(isEditing ? false : true )
       // setIsEditing(!isEditing);
       setIsEditing(editing=>!editing)// this is the best practice by react 
+      if(isEditing){
+          onChangeName(symbol, playerName)
+      }
     }
 
 
